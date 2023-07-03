@@ -14,17 +14,17 @@ using System.Text;
 using System.Threading.Tasks;
 using nsoftware.async.IPWorksZip;
 
-class openzipDemo
+class opensevenzipDemo
 {
-  private static Zip openzip = new nsoftware.async.IPWorksZip.Zip();
+  private static Sevenzip opensevenzip = new nsoftware.async.IPWorksZip.Sevenzip();
 
   static async Task Main(string[] args)
   {
     if (args.Length < 2)
     {
-      Console.WriteLine("usage: openzip /f inputfile\n");
-      Console.WriteLine("  inputfile       the path to the zip, gzip, tar, or jar archive");
-      Console.WriteLine("\nExample: openzip /f ..\\..\\..\\samplezip.zip\n");
+      Console.WriteLine("usage: opensevenzip /f inputfile\n");
+      Console.WriteLine("  inputfile       the path to the 7z archive");
+      Console.WriteLine("\nExample: opensevenzip /f ..\\..\\..\\samplezip.7z\n");
     }
     else
     {
@@ -32,12 +32,11 @@ class openzipDemo
       {
         Dictionary<string, string> myArgs = ConsoleDemo.ParseArgs(args);
 
-        openzip.ArchiveFile = myArgs["f"];
-        await openzip.Config("UseIBM437ASDefaultEncoding=false"); // To scan and extract samplezip.zip
+        opensevenzip.ArchiveFile = myArgs["f"];
 
         // Process user commands.
         Console.WriteLine("Type \"?\" or \"help\" for a list of commands.");
-        Console.Write("openzip> ");
+        Console.Write("opensevenzip> ");
         string command;
         string[] arguments;
 
@@ -58,8 +57,8 @@ class openzipDemo
           }
           else if (arguments[0] == "scan")
           {
-            await openzip.Scan();
-            foreach (ZIPFile file in openzip.Files)
+            await opensevenzip.Scan();
+            foreach (SevenZipFile file in opensevenzip.Files)
             {
               Console.WriteLine(file.CompressedName);
             }
@@ -68,16 +67,16 @@ class openzipDemo
           {
             if (arguments.Length > 2)
             {
-              openzip.ExtractToPath = arguments[2];
-              await openzip.Extract(arguments[1]);
+              opensevenzip.ExtractToPath = arguments[2];
+              await opensevenzip.Extract(arguments[1]);
             }
           }
           else if (arguments[0] == "extractall")
           {
             if (arguments.Length > 1)
             {
-              openzip.ExtractToPath = arguments[1];
-              await openzip.ExtractAll();
+              opensevenzip.ExtractToPath = arguments[1];
+              await opensevenzip.ExtractAll();
             }
           }
           else if (arguments[0] == "quit" || arguments[0] == "exit")
@@ -93,7 +92,7 @@ class openzipDemo
             Console.WriteLine("Invalid command.");
           } // End of command checking.
 
-          Console.Write("openzip> ");
+          Console.Write("opensevenzip> ");
         }
       }
       catch (Exception ex)

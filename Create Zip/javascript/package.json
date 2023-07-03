@@ -8,7 +8,7 @@
   "main": "createzip.js",
   "dependencies": {
     "full-icu": "*",
-    "ipworkszip": "^22.0.8544"
+    "ipworkszip": "^22.0.8584"
   },
   "scripts": {
     "createzip": "node createzip.js"
